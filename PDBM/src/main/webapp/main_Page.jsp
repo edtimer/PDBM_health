@@ -27,7 +27,7 @@
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#">Edit
 							patient</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Admin</a></li>
+					<li class="nav-item"><a class="nav-link" href="management.jsp">Admin</a></li>
 				</ul>
 				<form class="d-flex">
 					<input class="form-control me-2" type="search" placeholder="Search"
@@ -37,7 +37,24 @@
 			</div>
 		</div>
 	</nav>
-	<div class="table container">
+
+	<div class="date">
+	<div class="content">
+<div class="container text-left">
+<div class="row justify-content-center">
+<div class="col-lg-3">
+<h2 class="mb-5 text-center">Appointment Date</h2>
+<form action="#">
+<div class="form-group">
+<input type="text" class="form-control" id="pick-date" placeholder="Pick A Date">
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+	</div>
+		<div class="table container">
 		<div class="table">
 			<table class="table table-dark">
 				<thead>
@@ -70,22 +87,6 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
-	<div class="date">
-	<div class="content">
-<div class="container text-left">
-<div class="row justify-content-center">
-<div class="col-lg-3">
-<h2 class="mb-5 text-center">Appointment Date</h2>
-<form action="#">
-<div class="form-group">
-<input type="text" class="form-control" id="pick-date" placeholder="Pick A Date">
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
 	</div>
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
