@@ -1,20 +1,11 @@
 package com.Authenticate;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.time.temporal.TemporalAdjuster;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.View;
-
-import org.apache.catalina.connector.CoyoteWriter;
-import org.apache.jasper.tagplugins.jstl.core.Out;
-import org.eclipse.jdt.internal.compiler.classfmt.AnnotationMethodInfoWithAnnotations;
 
 @SuppressWarnings("serial")
 public class Authentication extends HttpServlet {

@@ -34,7 +34,6 @@
 				<button class="w-100 btn btn-lg btn-success" type="submit">Sign
 					in</button>
 				<p class="mt-5 mb-3 text-muted">2021</p>
-				<p>heree</p>
 
 			</form>
 		</main>
