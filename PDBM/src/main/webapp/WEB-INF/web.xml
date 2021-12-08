@@ -9,4 +9,12 @@
 		<url-pattern>/signin</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>logout</servlet-name>
+		<servlet-class>com.Authenticate.Logout</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
 </web-app>

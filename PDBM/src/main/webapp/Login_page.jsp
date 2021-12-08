@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" errorPage="404.jsp"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	errorPage="404.jsp" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,12 +19,14 @@
 					height="57">
 				<h1 class="h3 mb-3 fw-normal">Sign in</h1>
 				<div class="form-floating">
-					<input type="email" class="form-control" id="floatingInput" name="email"
-						placeholder="name@gmail.com"> <label for="floatingInput">Email</label>
+					<input type="email" class="form-control" id="floatingInput"
+						name="email" placeholder="name@gmail.com"> <label
+						for="floatingInput">Email</label>
 				</div>
 				<div class="form-floating">
-					<input type="password" class="form-control" id="floatingPassword" name="pass"
-						placeholder="Password"> <label for="floatingPassword">Password</label>
+					<input type="password" class="form-control" id="floatingPassword"
+						name="pass" placeholder="Password"> <label
+						for="floatingPassword">Password</label>
 				</div>
 				<div class="checkbox mb-3">
 					<label> <input type="checkbox" value="remember-me">
