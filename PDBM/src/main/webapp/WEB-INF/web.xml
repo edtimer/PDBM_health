@@ -17,4 +17,15 @@
 		<servlet-name>logout</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>add</servlet-name>
+		<servlet-class>com.Controllers.PatientController</servlet-class>
+	</servlet>	
+	
+		<servlet-mapping>
+		<servlet-name>add</servlet-name>
+		<url-pattern>/new</url-pattern>
+		<url-pattern>/add</url-pattern>
+	</servlet-mapping>
 </web-app>

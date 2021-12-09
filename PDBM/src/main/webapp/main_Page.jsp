@@ -34,7 +34,7 @@
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="#">Home</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="patient_Registration.jsp">Register</a></li>
+						href="patient_Registration.jsp">Register patient</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Edit
 							patient</a></li>
 					<li class="nav-item"><a class="nav-link" href="Management.jsp">Admin</a></li>
