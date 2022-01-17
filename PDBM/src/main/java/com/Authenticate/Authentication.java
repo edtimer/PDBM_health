@@ -26,7 +26,7 @@ public class Authentication extends HttpServlet {
 		AuthenticationDao dao = new AuthenticationDao();
 		if (dao.credentialCheck(email, password)) {
 
-			RequestDispatcher view = req.getRequestDispatcher("main_Page.jsp");
+			RequestDispatcher view = req.getRequestDispatcher("/PatientController");
 //TODO:
 //			writer.print(view);
 			HttpSession session = req.getSession();

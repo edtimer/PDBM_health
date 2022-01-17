@@ -1,5 +1,12 @@
+
+<%@page import="java.util.ArrayList"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="com.Model.Patient"%>
+<%@ page import="com.Controllers.PatientController"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,17 +39,19 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
+						aria-current="page" href="main_Page.jsp">Home</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="patient_Registration.jsp">Register patient</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Edit
-							patient</a></li>
-					<li class="nav-item"><a class="nav-link" href="Management.jsp">Admin</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="patient_Information.jsp">Edit patient</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="Admin_Login.jsp">Admin</a></li>
 				</ul>
 				<form class="d-flex" action="logout" method="post">
 					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
+						aria-label="Search" name="pid">
+					<button class="btn btn-outline-success"
+						formaction="search_Patient.jsp" type="submit">Search</button>
 					<button class="btn btn-outline-danger" type="submit">Logout</button>
 
 				</form>
@@ -50,7 +59,7 @@
 		</div>
 	</nav>
 
-	<div class="date">
+	<!--   <div class="date">
 		<div class="content">
 			<div class="container text-left">
 				<div class="row justify-content-center">
@@ -64,39 +73,60 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="table container">
-		<div class="table">
-			<table class="table table-dark">
+	</div>-->
+
+	<div id="wrap">
+		<div class="container">
+			<h3>Patient records</h3>
+			<table cellpadding="0" cellspacing="0" border="0"
+				class="datatable table table-striped table-bordered ">
 				<thead>
 					<tr>
-						<th scope="col">ID</th>
-						<th scope="col">First</th>
-						<th scope="col">Last</th>
-						<th scope="col">Address</th>
+						<th>Patient ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Age</th>
+						<th>Phone number</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row">K42423</th>
-						<td>Someone</td>
-						<td>Something</td>
-						<td>Kelantan</td>
-					</tr>
-					<tr>
-						<th scope="row">K234234</th>
-						<td>Another person</td>
-						<td>Test</td>
-						<td>Johor</td>
-					</tr>
-					<tr>
-						<th scope="row">K35643</th>
-						<td>josephina</td>
-						<td>123 Cheesecake</td>
-						<td>123 Tatarino line</td>
-					</tr>
+
+					<c:forEach var="patient" items="${patientlist}">
+						<tr class="gradeX">
+							<c:if test="${patient.id==null}">
+								<td>No patient records found</td>
+							</c:if>
+							<td class="center"><c:out value="${patient.id}" /></td>
+							<td class="center"><c:out value="${patient.firstName}" /></td>
+							<td class="center"><c:out value="${patient.lastName}" /></td>
+							<td class="center"><c:out value="${patient.dob}" /></td>
+							<td class="center"><c:out value="${patient.phoneNumber}" /></td>
+							<td>
+								<form method=post>
+
+									<input type="submit" value="Edit" class="btn-primary"
+										formaction="PatientController/edit?id=<c:out value='${patient.id}'/>">
+									<input type="submit" value="Delete" class="btn-danger"
+										formaction="PatientController/delete?id=<c:out value='${patient.id}'/>">
+									<input type="submit" value="Assign bed" class="btn-success"
+										formaction="PatientController/assign?id=<c:out value='${patient.id}'/>">
+								</form>
+						</tr>
+					</c:forEach>
+
 				</tbody>
+
 			</table>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item disabled"><a class="page-link">Previous</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
 		</div>
 	</div>
 	<script src="js/jquery-3.3.1.min.js"></script>
@@ -104,26 +134,25 @@
 	<script src="js/jquery.js"></script>
 	<!--the following script is not working yet it should make the success login message go away-->
 	<script>
-		function alerto() {
-			var alertPlaceholder = document
-					.getElementById('liveAlertPlaceholder')
-			var alertTrigger = document.getElementById('liveAlertBtn')
+		function alerto(message, type) {
+			var wrapper = document.createElement('div')
+			wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">'
+					+ message
+					+ '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
 
-			function alert(message, type) {
-				var wrapper = document.createElement('div')
-				wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">'
-						+ message
-						+ '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
-
-				alertPlaceholder.append(wrapper)
-			}
-
-			if (alertTrigger) {
-				alertTrigger.addEventListener('click', function() {
-					alert('Nice, you triggered this alert message!', 'success')
-				})
+			alertPlaceholder.append(wrapper)
+			function setTimeOut() {
+				var a = wrapper.innerHTML;
+				document.getElementById(a);
+				a.parentNode.removeChild(a);
 			}
 		}
+
+		if (alertTrigger) {
+			alertTrigger.addEventListener('click', function() {
+				alert('Nice, you triggered this alert message!', 'success')
+			})
+		}}
 	</script>
 </body>
 </html>

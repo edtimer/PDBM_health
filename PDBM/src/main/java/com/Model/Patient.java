@@ -1,16 +1,15 @@
 package com.Model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
 
-public class Patient {
-	
+public class Patient implements Serializable {
 
-	public Patient(String firstName, String lastName, String phoneNumber, String dob, String address,
-			String address2, String country, String state, String zip) {
+	public Patient(String firstName, String lastName, String phoneNumber, String dob, String address, String address2,
+			String country, String state, String zip, int id) {
 		super();
-		String uuid = UUID.randomUUID().toString();
-		this.id = uuid;
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
@@ -22,13 +21,13 @@ public class Patient {
 		this.zip = zip;
 	}
 
-	private String id;
+	private int id;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -102,6 +101,13 @@ public class Patient {
 
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+
+	@Override
+	public String toString() {
+		return "Patient [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
+				+ phoneNumber + ", dob=" + dob + ", address=" + address + ", address2=" + address2 + ", country="
+				+ country + ", state=" + state + ", zip=" + zip + "]";
 	}
 
 	private String firstName;

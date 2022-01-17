@@ -28,4 +28,16 @@
 		<url-pattern>/new</url-pattern>
 		<url-pattern>/add</url-pattern>
 	</servlet-mapping>
+	<servlet>
+        <servlet-name>PatientController</servlet-name>
+        <servlet-class>com.Controllers.PatientController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientController</servlet-name>
+        <url-pattern>/PatientController/delete</url-pattern>
+        <url-pattern>/PatientController/edit</url-pattern>
+        <url-pattern>/PatientController/assign</url-pattern>
+        <url-pattern>/PatientController/getInfo</url-pattern>
+        <url-pattern>/PatientController/admin</url-pattern>
+    </servlet-mapping>
 </web-app>

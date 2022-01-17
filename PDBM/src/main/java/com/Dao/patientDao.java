@@ -1,11 +1,10 @@
 package com.Dao;
 
-
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class patientDao {
 	private static final String SELECT_ALL_PATIENT_STRING = "select * from patients";
 	private static final String SELECT_PATIENT_BY_ID_STRING = "select id,firstName,lastName,phoneNumber,country,dob from patients where id=?";
 	private static final String DELETE_PATIENT_STRING = "delete from patients where id=?";
-	private static final String UPDATE_PATIENT_STRING = "update patients set firstName=?,lastName=?,address=?,phoneNumber=?";
+	private static final String UPDATE_PATIENT_STRING = "update patients set firstName=?,lastName=?,address=?,phoneNumber=? where id=?;";
 
 	public patientDao() {
 	}
@@ -63,19 +62,20 @@ public class patientDao {
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
 //	Method to select by ID
-	public Patient selectPatient(String patientId) {
+	public Patient selectPatient(int patientId) {
 		Patient patient = null;
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PATIENT_BY_ID_STRING)) {
-			preparedStatement.setString(1, patientId);
+			preparedStatement.setInt(1, patientId);
 
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				String id = rs.getString("id");
+				int id = rs.getInt("id");
 				String firstName = rs.getString("firstName");
 				String lastName = rs.getString("lastName");
 				String phoneNumber = rs.getString("phoneNumber");
@@ -85,11 +85,12 @@ public class patientDao {
 				String dob = rs.getString("dob");
 				String state = rs.getString("state");
 				String zip = rs.getString("zip");
-				patient = new Patient(firstName, lastName, phoneNumber, dob, address, address2, country, state,
-						zip);
+				patient = new Patient(firstName, lastName, phoneNumber, dob, address, address2, country, state, zip,
+						id);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.print("database issues");
 		}
 		return patient;
 	}
@@ -102,7 +103,7 @@ public class patientDao {
 
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				String id = rs.getString("id");
+				int id = rs.getInt("id");
 				String firstName = rs.getString("firstName");
 				String lastName = rs.getString("lastName");
 				String phoneNumber = rs.getString("phoneNumber");
@@ -112,11 +113,37 @@ public class patientDao {
 				String dob = rs.getString("dob");
 				String state = rs.getString("state");
 				String zip = rs.getString("zip");
-				patients.add(new Patient(firstName, lastName, phoneNumber, dob, address, address2, country, state,zip));
+				patients.add(
+						new Patient(firstName, lastName, phoneNumber, dob, address, address2, country, state, zip, id));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return patients;
+	}
+
+	// updating our patient info
+	public boolean updatePatientInfo(Patient patient) throws SQLException {
+		boolean updated;
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(UPDATE_PATIENT_STRING);) {
+			statement.setString(1, patient.getFirstName());
+			statement.setString(2, patient.getLastName());
+			statement.setString(3, patient.getAddress());
+			updated = statement.executeUpdate() > 0; // to determine if update was successful or failed.
+		}
+		return updated;
+	}
+
+	// deleting a patient
+	public boolean deletePatient(int id) throws SQLException {
+		boolean deleted;
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(DELETE_PATIENT_STRING);) {
+			statement.setInt(1, id);
+			deleted = statement.executeUpdate() > 0;
+
+		}
+		return deleted;
 	}
 }

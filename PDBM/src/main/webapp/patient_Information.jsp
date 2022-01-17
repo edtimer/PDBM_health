@@ -12,7 +12,7 @@
 <!-- CSS for bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="icon" href="medical_logo.jpg">
-<title>Bed Assignment</title>
+<title>patient Information</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/4.0/components/buttons/">
@@ -68,9 +68,9 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark marg">
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Netzilla</a>
+			<a class="navbar-brand" href="#">Medical system</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
 				aria-controls="navbarCollapse" aria-expanded="false"
@@ -79,18 +79,20 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
-					<li class="nav-item"><a class="nav-link " aria-current="page"
-						href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="patient_Registration.jsp">Register</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						href="patient_information_page">Edit patient</a></li>
+						aria-current="page" href="main_Page.jsp">Home</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="patient_Registration.jsp">Register patient</a></li>
+					<li class="nav-item"><a class="nav-link" href="patient_Information.jsp">Edit
+							patient</a></li>
 					<li class="nav-item"><a class="nav-link" href="Management.jsp">Admin</a></li>
 				</ul>
-				<form class="d-flex">
+				<form class="d-flex" action="logout" method="post">
 					<input class="form-control me-2" type="search" placeholder="Search"
 						aria-label="Search">
 					<button class="btn btn-outline-success" type="submit">Search</button>
+					<button class="btn btn-outline-danger" type="submit">Logout</button>
+
 				</form>
 			</div>
 		</div>

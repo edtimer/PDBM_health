@@ -1,3 +1,6 @@
+<%@page import="com.Dao.patientDao"%>
+<%@page import="com.Model.Patient"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!doctype html>
@@ -84,6 +87,7 @@
 		<div id="wrap">
 			<div class="container">
 				<h3>Patient records</h3>
+				<%List<Patient> list=patientDao.getRecords(pageid,total); %>
 				<table cellpadding="0" cellspacing="0" border="0"
 					class="datatable table table-striped table-bordered">
 					<thead>
@@ -138,14 +142,47 @@
 							<td class="center">24</td>
 							<td class="center">016254558x</td>
 						</tr>
-
-
-
+<tr class="gradeA">
+							<td>ABC123</td>
+							<td>First Name</td>
+							<td>Last Name</td>
+							<td class="center">24</td>
+							<td class="center">016254558x</td>
+						</tr>
+<tr class="gradeA">
+							<td>ABC123</td>
+							<td>First Name</td>
+							<td>Last Name</td>
+							<td class="center">24</td>
+							<td class="center">016254558x</td>
+						</tr>
+<tr class="gradeA">
+							<td>ABC123</td>
+							<td>First Name</td>
+							<td>Last Name</td>
+							<td class="center">24</td>
+							<td class="center">016254558x</td>
+						</tr>
 					</tbody>
 
 				</table>
+                              <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
 			</div>
 		</div>
+            
+             
 	</main>
 
 

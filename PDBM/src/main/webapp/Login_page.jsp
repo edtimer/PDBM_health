@@ -14,7 +14,7 @@
 	<div
 		class="d-flex min-vh-100 w-50 h-50 mx-auto justify-content-center align-items-center">
 		<main class="form-signin">
-			<form action="signin" method="post" onsubmit="return validate()">
+			<form  onsubmit="return validate()" action="signin" method="post">
 				<img class="mb-4" src="medical_logo.jpg" alt="" width="72"
 					height="57">
 				<h1 class="h3 mb-3 fw-normal">Sign in</h1>
