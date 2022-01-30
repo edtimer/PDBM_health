@@ -1,50 +1,64 @@
 package com.Model;
 
-import java.sql.Date;
 import java.util.UUID;
 
 public class Bed {
 
 	private UUID bid;
+	private int bedNo;
+	private int floor;
+	private int roomNo;
+	private String bedStatus;
+	private int patientId;
 	
+	public void setPatientId(int patientId) {
+		this.patientId = patientId;
+	}
+
+	public int getPatientID() {
+		return patientId;
+	}
+
+	public Bed(int bedNo, int floor, int roomNo, String bedStatus, int patientId) {
+		this.bedNo = bedNo;
+		this.floor = floor;
+		this.roomNo = roomNo;
+		this.bedStatus = bedStatus;
+		this.patientId = patientId;
+	}
 	
-	public double getPrice() {
-		return price;
+	public void setBedNo(int bedNo) {
+		this.bedNo = bedNo;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public int getBedNo() {
+		return bedNo;
+	}
+	
+	public void setFloor(int floor) {
+		this.floor = floor;
 	}
 
-	public String getDescriptionString() {
-		return descriptionString;
+	public int getFloor() {
+		return floor;
+	}
+	
+	public void setRoomNo(int roomNo) {
+		this.roomNo = roomNo;
 	}
 
-	public void setDescriptionString(String descriptionString) {
-		this.descriptionString = descriptionString;
+	public int getRoomNo() {
+		return roomNo;
+	}
+	
+	public void setBedStatus(String bedStatus) {
+		this.bedStatus = bedStatus;
 	}
 
-	public Date getStart_Date() {
-		return start_Date;
+	public String getBedStatus() {
+		return bedStatus;
 	}
-
-	public void setStart_Date(Date start_Date) {
-		this.start_Date = start_Date;
-	}
-
-	public Date getEnd_Date() {
-		return end_Date;
-	}
-
-	public void setEnd_Date(Date end_Date) {
-		this.end_Date = end_Date;
-	}
-
-	private double price;
-	private String descriptionString;
-	private Date start_Date;
-	private Date end_Date;
-
+	
 	public UUID getUid() {
 		return bid;
 	}

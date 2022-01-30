@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!doctype html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.Model.Patient"%>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -10,7 +12,7 @@
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
 <!-- CSS for bootstrap -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
 <link rel="icon" href="medical_logo.jpg">
 <title>patient Information</title>
 
@@ -83,9 +85,7 @@
 						aria-current="page" href="main_Page.jsp">Home</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="patient_Registration.jsp">Register patient</a></li>
-					<li class="nav-item"><a class="nav-link" href="patient_Information.jsp">Edit
-							patient</a></li>
-					<li class="nav-item"><a class="nav-link" href="Management.jsp">Admin</a></li>
+
 				</ul>
 				<form class="d-flex" action="logout" method="post">
 					<input class="form-control me-2" type="search" placeholder="Search"
@@ -122,24 +122,24 @@
 					<a href="#"
 						class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
 						id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="sample.jpg" alt="" width="32" height="32"
+						<img src="../sample.jpg" alt="" width="32" height="32"
 						class="rounded-circle me-2"> <strong>User</strong>
 					</a>
 				</div>
 			</div>
 			<div class="col-sm-1"></div>
 			<div class="col-md-8">
-				<img src="sample.jpg" id="profile_edit"
+				<img src="../sample.jpg" id="profile_edit"
 					class="img-fluid rounded-start" alt="...">
 				<div class="card-body">
 					<div class="card tabs">
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item "><b>First Name :</b> Samantha</li>
-							<li class="list-group-item "><b>Last Name :</b> Netzilla</li>
+							<li class="list-group-item "><b>First Name :</b> <c:out value="${patient.firstName}" /></li>
+							<li class="list-group-item "><b>Last Name :</b> <c:out value="${patient.lastName}" /></li>
 
-							<li class="list-group-item"><b>Age :</b> 24</li>
+							<li class="list-group-item"><b>DOB :</b> <c:out value="${patient.dob}" /></li>
 
-							<li class="list-group-item"><b>Gender :</b> Female</li>
+							<li class="list-group-item"><b>Gender :</b><c:out value="${patient.gender}" /></li>
 
 							<li class="list-group-item "><b>Allergy:</b> None</li>
 

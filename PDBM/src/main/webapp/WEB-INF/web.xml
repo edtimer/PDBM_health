@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
+
 	<servlet>
 		<servlet-name>Authentication</servlet-name>
 		<servlet-class>com.Authenticate.Authentication</servlet-class>
@@ -17,27 +18,87 @@
 		<servlet-name>logout</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>add</servlet-name>
 		<servlet-class>com.Controllers.PatientController</servlet-class>
-	</servlet>	
-	
-		<servlet-mapping>
+	</servlet>
+
+	<servlet-mapping>
 		<servlet-name>add</servlet-name>
 		<url-pattern>/new</url-pattern>
 		<url-pattern>/add</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
-        <servlet-name>PatientController</servlet-name>
-        <servlet-class>com.Controllers.PatientController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PatientController</servlet-name>
-        <url-pattern>/PatientController/delete</url-pattern>
-        <url-pattern>/PatientController/edit</url-pattern>
-        <url-pattern>/PatientController/assign</url-pattern>
-        <url-pattern>/PatientController/getInfo</url-pattern>
-        <url-pattern>/PatientController/admin</url-pattern>
-    </servlet-mapping>
+		<servlet-name>PatientController</servlet-name>
+		<servlet-class>com.Controllers.PatientController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PatientController</servlet-name>
+		<url-pattern>/PatientController/delete</url-pattern>
+		<url-pattern>/PatientController/edit</url-pattern>
+		<url-pattern>/PatientController/assign</url-pattern>
+		<url-pattern>/PatientController/getInfo</url-pattern>
+		<url-pattern>/PatientController/admin</url-pattern>
+		<url-pattern>/PatientController/add</url-pattern>
+		<url-pattern>/PatientController/reservation</url-pattern>
+		<url-pattern>/update</url-pattern>
+		<url-pattern>/PatientController/search</url-pattern>
+
+
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DoctorController</servlet-name>
+		<servlet-class>com.Controllers.DoctorController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DoctorController</servlet-name>
+		<url-pattern>/DoctorController/consultation</url-pattern>
+		<url-pattern>/submit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>up</servlet-name>
+		<servlet-class>com.Controllers.UploadController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>up</servlet-name>
+		<url-pattern>/upload</url-pattern>
+
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdminController</servlet-name>
+		<servlet-class>com.Controllers.AdminController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdminController</servlet-name>
+		<url-pattern>/AdminController/changepass</url-pattern>
+
+
+	</servlet-mapping>
+
+
+
+	<servlet>
+		<servlet-name>UserController</servlet-name>
+		<servlet-class>com.Controllers.UserController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UserController</servlet-name>
+		<url-pattern>/UserController/deleteStaff</url-pattern>
+		<url-pattern>/UserController/editingStaff</url-pattern>
+		<url-pattern>/UserController/updateStaff</url-pattern>
+		<url-pattern>/updateStaff</url-pattern>
+		<url-pattern>/UserController/addStaff</url-pattern>
+
+	</servlet-mapping>
+
 </web-app>

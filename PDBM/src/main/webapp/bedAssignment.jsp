@@ -1,18 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.Model.Bed"%>
+<%@page import="com.Model.Patient"%>
+<%@page import="java.util.ArrayList"%>
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="icon" href="medical_logo.jpg">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
 <!-- CSS for bootstrap -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="icon" href="medical_logo.jpg">
 <title>Bed Assignment</title>
 
 <link rel="canonical"
@@ -37,6 +40,7 @@
 
 
 <style>
+
 .bd-placeholder-img {
 	font-size: 1.125rem;
 	text-anchor: middle;
@@ -52,7 +56,7 @@
 }
 
 .marg {
-	margin-bottom: 0px;
+	margin-bottom: 0px !important;
 	padding-top: 10px;
 }
 
@@ -71,6 +75,8 @@ padding: 0px 0px 10px 10px;
 .modal-header{
 justify-content: center;
 }
+
+
 </style>
 
 
@@ -79,32 +85,50 @@ justify-content: center;
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark marg">
-<div class="container-fluid">
-		<a class="navbar-brand" href="#">Netzilla</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-			data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarCollapse">
-			<ul class="navbar-nav me-auto mb-2 mb-md-0">
-				<li class="nav-item"><a class="nav-link "
-					aria-current="page" href="#">Home</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="patient_Registration.jsp">Register</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Edit
-						patient</a></li>
-				<li class="nav-item"><a class="nav-link active" href="Management.jsp">Admin</a></li>
-			</ul>
-			<form class="d-flex">
-				<input class="form-control me-2" type="search" placeholder="Search"
-					aria-label="Search">
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
+	<!--  the following line is to prevent the page being stored as a cache when logged out-->
+
+	<%
+	//the following line is to prevent the page being stored as a cache when logged out
+	response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
+	response.setHeader("pragma", "no-cache");
+	response.setHeader("expires", "0");
+	if (session.getAttribute("credentials") == null) {
+		response.sendRedirect("Login_page.jsp");
+
+	}
+	%>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Medical system</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+				aria-controls="navbarCollapse" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav me-auto mb-2 mb-md-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="main_Page.jsp">Home</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="patient_Registration.jsp">Register patient</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="patient_Information.jsp">Edit patient</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="Admin_Login.jsp">Admin</a></li>
+				</ul>
+				<form class="d-flex" action="logout" method="post">
+					<input class="form-control me-2" type="search" placeholder="Search"
+						aria-label="Search" name="pid">
+					<button class="btn btn-outline-success"
+						formaction="search_Patient.jsp" type="submit">Search</button>
+					<button class="btn btn-outline-danger" type="submit">Logout</button>
+
+				</form>
+			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="container" style="width: 100%;">
@@ -116,13 +140,13 @@ justify-content: center;
 						      <div class="card-body">
 						        <h4 class="card-title">Floor 2 Room 1</h4>
 						        <p class="card-text">The available beds are updating in real time</p>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R1B1" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R1B2" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R1B3" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="111" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="112" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="113" onClick="reply_click(this.id)">-</button>
 						        <br/><br/>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R1B4" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R1B5" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R1B6" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="114" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="115" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="116" onClick="reply_click(this.id)">-</button>
 						      </div>
 						    </div>
 						  </div>
@@ -131,13 +155,13 @@ justify-content: center;
 						      <div class="card-body">
 						        <h4 class="card-title">Floor 2 Room 2</h4>
 						        <p class="card-text">The available beds are updating in real time</p>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R2B1" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R2B2" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R2B3" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="121" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="122" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="123" onClick="reply_click(this.id)">-</button>
 						        <br/><br/>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R2B4" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R2B5" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F2R2B6" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="124" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="125" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="126" onClick="reply_click(this.id)">-</button>
 						      </div>
 						    </div>
 						  </div>
@@ -147,13 +171,13 @@ justify-content: center;
 						      <div class="card-body">
 						        <h4 class="card-title">Floor 1 Room 1</h4>
 						        <p class="card-text">The available beds are updating in real time</p>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R1B1" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R1B2" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R1B3" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="211" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="212" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="213" onClick="reply_click(this.id)">-</button>
 						        <br/><br/>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R1B4" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R1B5" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R1B6" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="214" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="215" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="216" onClick="reply_click(this.id)">-</button>
 						      </div>
 						    </div>
 						  </div>
@@ -162,13 +186,14 @@ justify-content: center;
 						      <div class="card-body">
 						        <h4 class="card-title">Floor 1 Room 2</h4>
 						        <p class="card-text">The available beds are updating in real time</p>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R2B1" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R2B2" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R2B3" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="221" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="222" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="223" onClick="reply_click(this.id)">-</button>
 						        <br/><br/>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R2B4" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R2B5" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="F1R2B6" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="224" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="225" onClick="reply_click(this.id)">-</button>
+						        
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="" onload="disable_button(this.id)" onClick="reply_click(this.id)">-</button>
 						      </div>
 						    </div>
 						  </div>
@@ -207,24 +232,54 @@ justify-content: center;
 		</tbody>
 		</table>
 		<form>
+		
 		<div class="form-group">
 		<label for="patient-name" class="col-form-label">Patient ID:</label>
-		<input type="text" class="form-control" id="patient-name">
+		<input type="text" class="form-control" id="patient-name" value=<c:out value="${patient.id}" />>
 		</div>
 		</form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Assign</button>
+        <form action="reservation" method="post">
+        <select  name="bedId" >
+        <option>Floor1</option>
+        <option>Floor2</option>
+        </select>
+       <!--  <input id="floor" type="hidden" name="floor" >--> 
+        <!-- <input id="roomNumber" type="hidden" name="roomNumber" > -->
+        <input type="hidden" name="id" value="${patient.id}">
+        <input id ="f" type="hidden" name="floor" >
+        <input type="submit" class="btn btn-primary" value="Assign">
+        </form>
       </div>
     </div>
   </div>
 </div>
+
         <script type="text/javascript">
+        
+
         function reply_click(clicked_id)
         {
         	document.getElementById("bedIdModal").innerHTML = clicked_id;
+        	document.getElementById("bedId").value= clicked_id;
+        	document.getElementById("bedId").value= clicked_id;
+        	<!--document.getElementById("floor").value= clicked_id;-->
+        	<!--document.getElementById("roomNumber").value= clicked_id;-->
         	
+        }
+        function floor(clicked_id)
+        {
+        	document.getElementById("f").innerHTML = clicked_id;
+
+        }
+        
+        function disable_button(id)
+        {
+        	if(id == ""){
+        	document.getElementById(clicked_id).disable = false;
+        	}
         }
         </script>
 

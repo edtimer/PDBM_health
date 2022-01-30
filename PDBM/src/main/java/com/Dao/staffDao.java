@@ -22,12 +22,12 @@ public class staffDao {
 	private String driver = "com.mysql.jdbc.Driver";
 
 	private static final String INSERT_STAFF_TO_DB = "insert into staff"
-			+ " (staff_id,firstName,lastName,phoneNumber,email,password VALUES" + "(?,?,?,?,?,?);";
+			+ " (staff_id,firstName,lastName,phoneNumber,email,password,access VALUES" + "(?,?,?,?,?,?,?);";
 
 	private static final String SELECT_ALL_STAFF_STRING = "select * from staff";
-	private static final String SELECT_STAFF_BY_ID_STRING = "select id,firstName,lastName,phoneNumber,email,password from staff where id=?";
+	private static final String SELECT_STAFF_BY_ID_STRING = "select id,firstName,lastName,phoneNumber,email,password,access from staff where id=?";
 	private static final String DELETE_STAFF_STRING = "delete from staff where id=?";
-	private static final String UPDATE_STAFF_STRING = "update staff set firstName=?,lastName=?,email=?,password=? where id=?;";
+	private static final String UPDATE_STAFF_STRING = "update staff set firstName=?,lastName=?,email=?,password=?,access=? where id=?;";
 
 	public staffDao() {
 	}
@@ -49,12 +49,13 @@ public class staffDao {
 	public void addstaff(Staff staff) {
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STAFF_TO_DB)) {
-			preparedStatement.setLong(1, staff.getId());
+			preparedStatement.setLong(1, staff.getUser_id());
 			preparedStatement.setString(2, staff.getFirstName());
 			preparedStatement.setString(3, staff.getLastName());
 			preparedStatement.setString(4, staff.getPhoneNumber());
 			preparedStatement.setString(5, staff.getEmail());
 			preparedStatement.setString(6, staff.getPassword());
+			preparedStatement.setString(7, staff.getAccess());
 
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
@@ -78,7 +79,8 @@ public class staffDao {
 				String phoneNumber = rs.getString("phoneNumber");
 				String email = rs.getString("email");
 				String password = rs.getString("password");
-				staff = new Staff(id, firstName, lastName, phoneNumber, email, password);
+				String access = rs.getString("access");
+				staff = new Staff(id, firstName, lastName, phoneNumber, email, password, access);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -101,9 +103,10 @@ public class staffDao {
 				String phoneNumber = rs.getString("phoneNumber");
 				String email = rs.getString("email");
 				String password = rs.getString("password");
+				String access = rs.getString("access");
 
 				allStaff.add(
-						new Staff(id, firstName, lastName, phoneNumber, email, password));
+						new Staff(id, firstName, lastName, phoneNumber, email, password, access));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

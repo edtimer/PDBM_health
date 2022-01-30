@@ -42,9 +42,9 @@ public class Filter implements javax.servlet.Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		PrintWriter out = response.getWriter();
 		
-		String nameString = req.getParameter("pass");
+		String nameString = req.getParameter("password");
 		// pass the request along the filter chain
-		if(!(nameString.contains(";"))) 
+		if(!(nameString.contains("%"))) 
 		chain.doFilter(request, response);
 		
 	else 

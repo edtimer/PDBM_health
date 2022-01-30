@@ -26,17 +26,17 @@
 						class="img-fluid" alt="Phone image">
 				</div>
 				<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-					<form>
+					<form action="signin" method="post">
 						<!-- Email input -->
 						<div class="form-outline mb-4">
-							<input type="email" id="form1Example13"
+							<input type="email" id="form1Example13" name="email"
 								class="form-control form-control-lg" /> <label
 								class="form-label" for="form1Example13">Email address</label>
 						</div>
 
 						<!-- Password input -->
 						<div class="form-outline mb-4">
-							<input type="password" id="form1Example23"
+							<input type="password" id="form1Example23" name="password"
 								class="form-control form-control-lg" /> <label
 								class="form-label" for="form1Example23">Password</label>
 						</div>

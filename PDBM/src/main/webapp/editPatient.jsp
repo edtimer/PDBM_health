@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.Model.Patient"%>
 <!doctype html>
+<c:set var="patient" value="${patient}" scope="session"/>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -13,13 +15,22 @@
 <!-- CSS for bootstrap -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link rel="icon" href="medical_logo.jpg">
-<title>Bed Assignment</title>
+<title>Edit patient</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/4.0/components/buttons/">
 
 
+<%
+//the following line is to prevent the page being stored as a cache when logged out
+response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
+response.setHeader("pragma", "no-cache");
+response.setHeader("expires", "0");
+if (session.getAttribute("credentials") == null) {
+	response.sendRedirect("Login_page.jsp");
 
+}
+%>
 
 <!-- Favicons -->
 <link rel="apple-touch-icon"
@@ -52,7 +63,7 @@
 }
 
 .marg {
-	margin-bottom: 0px;
+	margin-bottom: 0px !important;
 	padding-top: 10px;
 }
 
@@ -67,11 +78,11 @@
 <!-- Custom styles for this template -->
 <link href="dashboard.css" rel="stylesheet">
 </head>
-
 <body>
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
 		<div class="container-fluid">
+
 			<a class="navbar-brand" href="#">Medical system</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -82,110 +93,117 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="main_Page.jsp">Home</a></li>
+						aria-current="page" href=<c:url value="/PatientController"/>>Home</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="patient_Registration.jsp">Register patient</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="patient_Information.jsp">Edit patient</a></li>
-					<li class="nav-item"><a class="nav-link" href="Management.jsp">Admin</a></li>
+						href="search_Patient.jsp">Edit patient</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="Admin_Login.jsp">Admin</a></li>
 				</ul>
-				<form class="d-flex" action="logout" method="post">
+				<form class="d-flex" action=<c:url value="/logout"/> method="post">
 					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
+						aria-label="Search" name="sid">
+					<button class="btn btn-outline-success"
+						formaction="search_Patient.jsp" type="submit">Search</button>
 					<button class="btn btn-outline-danger" type="submit">Logout</button>
 
 				</form>
 			</div>
 		</div>
 	</nav>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
-				style="width: 280px; height: 55em;">
-				<a href="/"
-					class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+	<div></div>
+	<form action=<c:url value="/update"/> method="post">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+					style="width: 280px; height: 55em;">
+					<a href="/"
+						class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 
-					<span class="fs-4">Netzilla</span>
-				</a>
-				<hr>
-				<ul class="nav nav-pills flex-column mb-auto">
-					<li class="nav-item"><a href="#" class="nav-link "
-						aria-current="page"> Home </a></li>
-					<li><a href="#" class="nav-link text-white"> Dashboard </a></li>
-					<li><a href="#" class="nav-link text-white active">
-							Patient management </a></li>
-					<li><a href="#" class="nav-link text-white"> User
-							Management </a></li>
-					<li><a href="#" class="nav-link text-white"> Reports </a></li>
-				</ul>
-				<hr>
-				<div class="dropdown">
-					<a href="#"
-						class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-						id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="sample.jpg" alt="" width="32" height="32"
-						class="rounded-circle me-2"> <strong>Patient</strong>
+						<span class="fs-4">Netzilla</span>
 					</a>
+					<hr>
+					<ul class="nav nav-pills flex-column mb-auto">
+						<li class="nav-item"><a href="#" class="nav-link "
+							aria-current="page"> Home </a></li>
+						<li><a href="#" class="nav-link text-white"> Dashboard </a></li>
+						<li><a href="#" class="nav-link text-white active">
+								Patient management </a></li>
+						<li><a href="#" class="nav-link text-white"> User
+								Management </a></li>
+						<li><a href="#" class="nav-link text-white"> Reports </a></li>
+					</ul>
+					<hr>
+
 				</div>
-			</div>
-			<div class="col-sm-1"></div>
-			<div class="container col-md-5">
-				<div class="card">
-					<div class="card-body">
-						<c:if test="${patient != null}">
-							<form action="update" method="post">
-						</c:if>
-						<c:if test="${patient == null}">
-							<form action="insert" method="post">
-						</c:if>
 
-						<caption>
-							<h2>
-								<c:if test="${patient != null}">
-            			Edit Patient
-            		</c:if>
-								<c:if test="${patient== null}">
-            			Add New Patient
-            		</c:if>
-							</h2>
-						</caption>
+				<div class="col-sm-2"></div>
+				<div
+					class="container h-100 d-flex justify-content-center align-items-center col-md-8">
+					<img src="../sample.jpg" id="profile_edit"
+						class="img-fluid rounded-start" alt="...">
+					<div class="card-body input-group mb-12">
+						<div class="card tabs">
+							<ul class="list-group list-group-flush ">
 
-						<c:if test="${patient != null}">
-							<input type="hidden" name="id"
-								value="<c:out value='${patient.id}' />" />
-						</c:if>
+								<li class="list-group-item "><b>Patient ID :</b> <c:out
+										value="${patient.id}" /></li>
 
-						<fieldset class="form-group">
-							<label>User Name</label> <input type="text"
-								value="<c:out value='${patient.name}' />" class="form-control"
-								name="name" required="required">
-						</fieldset>
+								<li class="list-group-item"><b>First Name :</b> <input name="firstName" type="text"
+									value="<c:out value='${patient.firstName}'/>"></li>
 
-						<fieldset class="form-group">
-							<label>User Email</label> <input type="text"
-								value="<c:out value='${user.email}' />" class="form-control"
-								name="email">
-						</fieldset>
+								<li class="list-group-item"><b>last Name :</b> <input type="text" name="lastName"
+									value="<c:out value='${patient.lastName}'/>"></li>
 
-						<fieldset class="form-group">
-							<label>User Country</label> <input type="text"
-								value="<c:out value='${patient.country}' />"
-								class="form-control" name="country">
-						</fieldset>
+								<li class="list-group-item"><b>DOB :</b> <input name="dob" type="text"
+									value="<c:out value='${patient.dob}'/>"></li>
 
-						<button type="submit" class="btn btn-success">Save</button>
-						</form>
 
+
+								<li class="list-group-item"><b>phone # :</b> <input name="phoneNumber"
+									type="text" value="<c:out value='${patient.phoneNumber}'/>"></li>
+
+								<li class="list-group-item"><b>address:</b> <input name="address"
+									type="text" value="<c:out value='${patient.address}'/>"></li>
+
+								<li class="list-group-item"><b>address2 :</b> <input name="address2"
+									type="text" value="<c:out value='${patient.address2}'/>"></li>
+
+								<li class="list-group-item"><b>country:</b> <input name="country"
+									type="text" value="<c:out value='${patient.country}'/>"></li>
+
+								<li class="list-group-item"><b>state :</b> <input name="state"
+									type="text" value="<c:out value='${patient.state}'/>"></li>
+
+								<li class="list-group-item"><b>zip :</b> <input type="text"name="zip"
+									value="<c:out value='${patient.zip}'/>"></li>
+
+
+
+							</ul>
+							<br>
+							<h5 style="text-align: center">Gender selection</h5>
+							<br> <select name="gender" class="form-select"
+								aria-label="Default select example" required name="gender">
+								<option selected>Select gender</option>
+								<option value="Male">Male</option>
+								<option value="Female">Female</option>
+
+							</select>
+
+							<div class="card-body">
+								<button type="submit" class="btn btn-primary">submit</button>
+								<a href="#"><button type="button" onclick="goBack()"
+										class="btn btn-danger">cancel</button></a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="card-body">
-				<a href="#"><button type="button" onclick="window.print()"
-						class="btn btn-success">Print</button></a>
-			</div>
 		</div>
-	</div>
+	</form>
+
 
 
 	<script>
@@ -205,6 +223,11 @@
 		('#exampleModal').on('shown.bs.modal', function() {
 			('#patient-name').trigger('focus');
 		})
+	</script>
+	<script>
+		function goBack() {
+			window.history.back();
+		}
 	</script>
 </body>
 </html>

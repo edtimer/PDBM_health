@@ -1,5 +1,5 @@
 package com.Model;
 
-public class Admin implements Users {
+public class Admin extends Users {
 
 }

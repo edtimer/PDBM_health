@@ -15,7 +15,7 @@ public class AuthenticationDao {
 			String url = "jdbc:mysql://localhost:3306/netzilla";
 			String unameString = "root";
 			String pass = "pass";
-			String sql = "select * from users where email=? and pass=?";
+			String sql = "select * from users where email=? and password=?";
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// creating connection object
@@ -24,15 +24,20 @@ public class AuthenticationDao {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, email);
 			statement.setString(2, password);
+			System.out.println("about to check\n");
+			System.out.println(email+password);
+			
 			ResultSet rs = statement.executeQuery();
+
 			if (rs.next()) {
+				System.out.println("Successs");
 				return true;
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		System.out.println("fail");
 		return false;
 	}
 

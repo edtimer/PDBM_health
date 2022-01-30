@@ -28,7 +28,7 @@
 
 	}
 	%>
-	<%int id = ((int)request.getAttribute("pid")); %> 
+
 	<!-- thinkinghow to get the int and pass it to controller-->
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
 		<div class="container-fluid">
@@ -43,73 +43,28 @@
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="main_Page.jsp">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"
-						class="disabled">Diagnose patient</a></li>
+
 				</ul>
 				<form class="d-flex" action="logout" method="post">
-					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
 					<button class="btn btn-outline-danger" type="submit">Logout</button>
 
 				</form>
 			</div>
 		</div>
 	</nav>
-
-	<!--   <div class="date">
-		<div class="content">
-			<div class="container text-left">
-				<div class="row justify-content-center">
-					<div class="row">
-						<div class="input-append date" id="dp3" data-date="12-02-2012"
-							data-date-format="dd-mm-yyyy">
-							<input class="span2" size="16" type="text" value="12-02-2012">
-							<span class="add-on"><i class="icon-th"></i></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>-->
-
-	<div id="wrap">
-		<div class="container">
-			<h3>Patient records</h3>
-			<table cellpadding="0" cellspacing="0" border="0"
-				class="datatable table table-striped table-bordered ">
-				<thead>
-					<tr>
-						<th>Patient ID</th>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Age</th>
-						<th>Phone number</th>
-					</tr>
-				</thead>
-				<tbody>
-
-					<tr class="gradeX">
-						<c:if test="${patient.id==null}">
-							<td>No patient records found</td>
-						</c:if>
-						<td class="center"><c:out value="${patient.id}" /></td>
-						<td class="center"><c:out value="${patient.firstName}" /></td>
-						<td class="center"><c:out value="${patient.lastName}" /></td>
-						<td class="center"><c:out value="${patient.dob}" /></td>
-						<td class="center"><c:out value="${patient.phoneNumber}" /></td>
-						<td>
-							<form method=post>
-								<input type="submit" value="select" class="btn-primary"
-									formaction="PatientController/getInfo?id=<c:out value='${patient.id}'/>">
-							</form>
-					</tr>
-
-				</tbody>
-
-			</table>
-		</div>
+	<form action="PatientController/search" method="post">
+	<div class="container pt-7 my-4">
+	<h2 style=text-align:center;>Search for patient by id</h2>
+	<br>
 	</div>
+	<div class="container">
+<div class="input-group">
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="id" />
+  <input type="submit" class="btn btn-outline-success"/>
+</div>
+</div>
+</form>
+
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/jquery.js"></script>

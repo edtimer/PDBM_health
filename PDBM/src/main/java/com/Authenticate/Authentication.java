@@ -20,13 +20,18 @@ public class Authentication extends HttpServlet {
 
 //		PrintWriter writer = res.getWriter();
 		String email = req.getParameter("email");
-		String password = req.getParameter("pass");
+		String password = req.getParameter("password");
 //we need to use equals because String is not a primitive data type in java
 		PrintWriter out = res.getWriter();
 		AuthenticationDao dao = new AuthenticationDao();
+		AccessDao daoAccess = new AccessDao();
+		
 		if (dao.credentialCheck(email, password)) {
+			
+			int id = daoAccess.accessCheck(email, password);
+			System.out.println(id);
 
-			RequestDispatcher view = req.getRequestDispatcher("/PatientController");
+			RequestDispatcher view = req.getRequestDispatcher("/MainController");
 //TODO:
 //			writer.print(view);
 			HttpSession session = req.getSession();
@@ -34,6 +39,7 @@ public class Authentication extends HttpServlet {
 			itemsList.add(email);
 			itemsList.add(password);
 			session.setAttribute("credentials", itemsList);
+			session.setAttribute("id", id);
 			view.forward(req, res);
 //			writer.print("okay");
 		} else {

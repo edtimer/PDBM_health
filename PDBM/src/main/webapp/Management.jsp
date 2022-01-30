@@ -1,8 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!doctype html>
-<html lang="en">
-<head>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@page import="com.Model.Users"%>
+<%@page import="java.util.ArrayList"%>
+
+<!DOCTYPE html>
+<html>
+<title>Admin page</title>
+<meta charset="UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -12,15 +18,15 @@
 <!-- CSS for bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="icon" href="medical_logo.jpg">
-<title>Admin Management</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="dashboard.css" rel="stylesheet">
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
-
-
-
-
-<!-- Favicons -->
 <link rel="apple-touch-icon"
 	href="/docs/5.1/assets/img/favicons/apple-touch-icon.png"
 	sizes="180x180">
@@ -33,8 +39,6 @@
 <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
 
 <meta name="theme-color" content="#7952b3">
-
-
 <style>
 .bd-placeholder-img {
 	font-size: 1.125rem;
@@ -49,22 +53,20 @@
 		font-size: 3.5rem;
 	}
 }
-.marg{
-margin-bottom:0px;
-padding-top:10px;
+
+.marg {
+	margin-bottom: 0px;
+	padding-top: 10px;
 }
 
-.card-img-top{
-margin-left: auto;
-margin-right: auto;
+.card-img-top {
+	margin-left: auto;
+	margin-right: auto;
 }
 </style>
 
 
-<!-- Custom styles for this template -->
-<link href="dashboard.css" rel="stylesheet">
-</head>
-<body>
+<body id="myPage">
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
 		<div class="container-fluid">
@@ -81,9 +83,8 @@ margin-right: auto;
 						aria-current="page" href="main_Page.jsp">Home</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="patient_Registration.jsp">Register patient</a></li>
-					<li class="nav-item"><a class="nav-link" href="patient_Information.jsp">Edit
-							patient</a></li>
-					<li class="nav-item"><a class="nav-link" href="Management.jsp">Admin</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="patient_Information.jsp">Edit patient</a></li>
 				</ul>
 				<form class="d-flex" action="logout" method="post">
 					<input class="form-control me-2" type="search" placeholder="Search"
@@ -95,142 +96,55 @@ margin-right: auto;
 			</div>
 		</div>
 	</nav>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
-				style="width: 280px; height:55em; ">
-				<a href="/"
-					class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 
-					<span class="fs-4">Netzilla</span>
-				</a>
-				<hr>
-				<ul class="nav nav-pills flex-column mb-auto">
-					<li class="nav-item"><a href="#" class="nav-link "
-						aria-current="page"> Home </a></li>
-					<li><a href="#" class="nav-link text-white active">
+	<!-- Image Header -->
+	<div class="w3-display-container w3-animate-opacity">
 
-							Dashboard </a></li>
-					<li><a href="#" class="nav-link text-white"> Patient management </a></li>
-					<li><a href="#" class="nav-link text-white"> User Management </a></li>
-					<li><a href="#" class="nav-link text-white"> Reports </a></li>
-				</ul>
-				<hr>
-				<div class="dropdown">
-					<a href="#"
-						class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-						id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="sample.jpg" alt="" width="32" height="32"
-						class="rounded-circle me-2"> <strong>User</strong>
-					</a>
-				</div>
+		<img src="new.jpg" class="img-fluid"alt="boat" style="width: 100%; min-height: 350px; max-height: 600px;">
+
+	</div>
+
+	<hr>
+
+	<!-- stats Container -->
+	<div class="w3-container w3-padding-64 w3-center" id="team">
+		<h2>System stats</h2>
+
+		<div class="w3-row">
+			<br>
+
+			<div class="w3-third">
+				<a href="bedList.jsp"> <img src="bed.png" alt="bed image"
+					style="width: 45%" class="w3-circle w3-hover-opacity"></a>
+				<h3>Beds</h3>
+				<p>14</p>
 			</div>
-			<div class="col-md-2"></div>
-			
-			<div  class="card-deck col-md-5 text-center">
-			<h1 style="text-align:center;">System stats</h1>
-				<div class="card">
-					<img style="width: 100px; height: 100px; " class="card-img-top"
-						src="bed.png" alt="Card image cap">
-					<div class="card-body">
-						<h5 class="card-title">Beds</h5>
-						<p class="card-text">14</p>
-					</div>
 
-				</div>
-				<div class="card">
-					<img style="width: 100px; height: 100px;" class="card-img-top" src="doctors.jpg" alt="Card image cap">
-					<div class="card-body">
-						<h5 class="card-title">Physicians</h5>
-						<p class="card-text">7</p>
-					</div>
-
-				</div>
-				<div class="card">
-					<img style="width: 100px; height: 100px;" class="card-img-top" src="patients.jpg" alt="Card image cap">
-					<div class="card-body">
-						<h5 class="card-title">Staff</h5>
-						<p class="card-text">20</p>
-					</div>
-
-				</div>
-				<div class="tab">
-							<h2 style="text-align:center;">System logs</h2>
-			<div class="table-responsive">
-				<table class="table table-striped table-sm">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Session</th>
-							<th scope="col">Logged in</th>
-							<th scope="col">date</th>
-							<th scope="col">time</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1,001</td>
-							<td>random</td>
-							<td>data</td>
-							<td>placeholder</td>
-							<td>text</td>
-						</tr>
-						<tr>
-							<td>1,002</td>
-							<td>placeholder</td>
-							<td>irrelevant</td>
-							<td>visual</td>
-							<td>layout</td>
-						</tr>
-						<tr>
-							<td>1,003</td>
-							<td>data</td>
-							<td>rich</td>
-							<td>dashboard</td>
-							<td>tabular</td>
-						</tr>
-						<tr>
-							<td>1,003</td>
-							<td>information</td>
-							<td>placeholder</td>
-							<td>illustrative</td>
-							<td>data</td>
-						</tr>
-						<tr>
-							<td>1,004</td>
-							<td>text</td>
-							<td>random</td>
-							<td>layout</td>
-							<td>dashboard</td>
-						</tr>
-						<tr>
-							<td>1,005</td>
-							<td>dashboard</td>
-							<td>irrelevant</td>
-							<td>text</td>
-							<td>placeholder</td>
-						</tr>
-						<tr>
-							<td>1,006</td>
-							<td>dashboard</td>
-							<td>illustrative</td>
-							<td>rich</td>
-							<td>data</td>
-						</tr>
-
-
-					</tbody>
-				</table>
+			<div class="w3-third">
+				<a href="patientList.jsp"> <img src="patients.jpg"
+					alt="patient image" style="width: 45%"
+					class="w3-circle w3-hover-opacity"></a>
+				<h3>Patients</h3>
+				<p><b>${fn:length(patientlist)}</b></p>
 			</div>
+
+			<div class="w3-third">
+				<a href="staffList.jsp"> <img src="doctors.jpg"
+					alt="doctor image" style="width: 45%"
+					class="w3-circle w3-hover-opacity"></a>
+				<h3>Staff</h3>
+				<p><b>${fn:length(Userslist)}</b></p>
 			</div>
-			</div>
+
 
 		</div>
 	</div>
 
-
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/jquery.js"></script>
+
+
+
 </body>
 </html>

@@ -22,13 +22,17 @@ public class patientDao {
 	private String driver = "com.mysql.jdbc.Driver";
 
 	private static final String INSERT_PATIENT_TO_DB = "insert into patients"
-			+ " (firstName,lastName ,phoneNumber,dob,address,address2,country,state,zip VALUES"
-			+ "(?,?,?,?,?,?,?,?,?);";
+			+ " (ID, firstName,lastName, gender, phoneNumber,dob,address,address2,state,zip,country) VALUES"
+			+ "(?,?,?,?,?,?,?,?,?,?,?);";
+	
 
+	
+	
+	private static final String INSERT_IMAGE_TO_DB = "update patients set imagelocation=? where ID=?;";
 	private static final String SELECT_ALL_PATIENT_STRING = "select * from patients";
-	private static final String SELECT_PATIENT_BY_ID_STRING = "select id,firstName,lastName,phoneNumber,country,dob from patients where id=?";
-	private static final String DELETE_PATIENT_STRING = "delete from patients where id=?";
-	private static final String UPDATE_PATIENT_STRING = "update patients set firstName=?,lastName=?,address=?,phoneNumber=? where id=?;";
+	private static final String SELECT_PATIENT_BY_ID_STRING = "select ID,firstName,lastName,gender,phoneNumber,address,address2,country,dob,state,zip from patients where ID=?;";
+	private static final String DELETE_PATIENT_STRING = "delete from patients where ID=?;";
+	private static final String UPDATE_PATIENT_STRING = "update patients set ID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,address=?,address2=?,country=?,dob=?,state=?,zip=? where ID=?;";
 
 	public patientDao() {
 	}
@@ -50,15 +54,19 @@ public class patientDao {
 	public void addPatient(Patient patient) {
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PATIENT_TO_DB)) {
-			preparedStatement.setString(1, patient.getFirstName());
-			preparedStatement.setString(2, patient.getLastName());
-			preparedStatement.setString(3, patient.getPhoneNumber());
-			preparedStatement.setString(4, patient.getDob());
-			preparedStatement.setString(5, patient.getAddress());
-			preparedStatement.setString(6, patient.getAddress2());
-			preparedStatement.setString(7, patient.getCountry());
-			preparedStatement.setString(8, patient.getState());
-			preparedStatement.setString(9, patient.getZip());
+
+			preparedStatement.setInt(1, patient.getId());
+			preparedStatement.setString(2, patient.getFirstName());
+			preparedStatement.setString(3, patient.getLastName());
+			preparedStatement.setString(4, patient.getGender());
+			preparedStatement.setString(5, patient.getPhoneNumber());
+			preparedStatement.setString(7, patient.getAddress());
+			preparedStatement.setString(8, patient.getAddress2());
+			preparedStatement.setString(9, patient.getCountry());
+			preparedStatement.setString(6, patient.getDob());
+			preparedStatement.setString(10, patient.getState());
+			preparedStatement.setString(11, patient.getZip());
+			
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -77,7 +85,9 @@ public class patientDao {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String firstName = rs.getString("firstName");
+				System.out.println("\nName: " + firstName);
 				String lastName = rs.getString("lastName");
+				String gender = rs.getString("gender");
 				String phoneNumber = rs.getString("phoneNumber");
 				String country = rs.getString("country");
 				String address = rs.getString("address");
@@ -85,13 +95,14 @@ public class patientDao {
 				String dob = rs.getString("dob");
 				String state = rs.getString("state");
 				String zip = rs.getString("zip");
-				patient = new Patient(firstName, lastName, phoneNumber, dob, address, address2, country, state, zip,
-						id);
+				patient = new Patient(id, firstName, lastName, gender, phoneNumber, dob, address, address2, country,state, zip);
+				System.out.println("\nselectPatient1: " + patient);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.print("database issues");
+			e.printStackTrace();
 		}
+		System.out.println("\nselectPatient: " + patient);
 		return patient;
 	}
 
@@ -106,6 +117,7 @@ public class patientDao {
 				int id = rs.getInt("id");
 				String firstName = rs.getString("firstName");
 				String lastName = rs.getString("lastName");
+				String gender = rs.getString("gender");
 				String phoneNumber = rs.getString("phoneNumber");
 				String country = rs.getString("country");
 				String address = rs.getString("address");
@@ -113,8 +125,8 @@ public class patientDao {
 				String dob = rs.getString("dob");
 				String state = rs.getString("state");
 				String zip = rs.getString("zip");
-				patients.add(
-						new Patient(firstName, lastName, phoneNumber, dob, address, address2, country, state, zip, id));
+				patients.add(new Patient(id, firstName, lastName, gender, phoneNumber, dob, address, address2, country,
+						state, zip));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -126,13 +138,35 @@ public class patientDao {
 	public boolean updatePatientInfo(Patient patient) throws SQLException {
 		boolean updated;
 		try (Connection connection = getConnection();
+
 				PreparedStatement statement = connection.prepareStatement(UPDATE_PATIENT_STRING);) {
-			statement.setString(1, patient.getFirstName());
-			statement.setString(2, patient.getLastName());
-			statement.setString(3, patient.getAddress());
+			statement.setInt(1, patient.getId());
+			statement.setString(2, patient.getFirstName());
+			statement.setString(3, patient.getLastName());
+			statement.setString(4, patient.getGender());
+			statement.setString(5, patient.getPhoneNumber());
+			statement.setString(6, patient.getAddress());
+			statement.setString(7, patient.getAddress2());
+			statement.setString(8, patient.getCountry());
+			statement.setString(9, patient.getDob());
+			statement.setString(10, patient.getState());
+			statement.setString(11, patient.getZip());
+			statement.setInt(12, patient.getId());
 			updated = statement.executeUpdate() > 0; // to determine if update was successful or failed.
 		}
 		return updated;
+	}
+	public boolean insertPatientImage(String location,int patient) throws SQLException{
+		boolean updated;
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(INSERT_IMAGE_TO_DB);) {
+			statement.setString(1, location);
+			statement.setInt(2, patient);
+			updated = statement.executeUpdate() > 0; // to determine if update was successful or failed.
+		}
+		return updated;
+				
+		
 	}
 
 	// deleting a patient

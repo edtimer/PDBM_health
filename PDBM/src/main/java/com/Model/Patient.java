@@ -1,3 +1,4 @@
+
 package com.Model;
 
 import java.io.Serializable;
@@ -6,12 +7,19 @@ import java.util.UUID;
 
 public class Patient implements Serializable {
 
-	public Patient(String firstName, String lastName, String phoneNumber, String dob, String address, String address2,
-			String country, String state, String zip, int id) {
-		super();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String gender;
+	private int id;
+
+	public Patient(int id, String firstName, String lastName, String gender, String phoneNumber, String dob, String address, String address2,
+			String country, String state, String zip) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.gender = gender;
 		this.phoneNumber = phoneNumber;
 		this.dob = dob;
 		this.address = address;
@@ -21,7 +29,13 @@ public class Patient implements Serializable {
 		this.zip = zip;
 	}
 
-	private int id;
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
 	public int getId() {
 		return id;

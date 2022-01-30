@@ -20,9 +20,7 @@
 
 <!-- Custom styles for this template -->
 <link href="form-validation.css" rel="stylesheet">
-<script type="text/javascript"
-	src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=gS0cCAe5xg4v3tgJzlqlQSuWOSeJJYN1WH94DCqGqBVcvldHPfgvav8cxz5x9EjDn9-mgWPDdGo7WjLStmnmHk_4NH8DyPbxHTXp30IZ2DY"
-	charset="UTF-8"></script>
+
 </head>
 
 <!--tried the following styles but it didn't work-->
@@ -67,45 +65,61 @@
 
 		<div class="col-md-8 order-md-1 offset-2">
 			<h4 class="mb-3">Registration</h4>
-			<form class="needs-validation" novalidate action="add">
+			<form class="needs-validation" novalidate
+				action="PatientController/add" method="post">
 				<div class="row">
 					<div class="col-md-6 mb-3">
 						<label for="firstName">First name</label> <input type="text"
-							class="form-control" id="firstName" placeholder="" value=""
-							required>
+							class="form-control" id="firstName" name="firstName"
+							placeholder="" value="" required>
 						<div class="invalid-feedback">Valid first name is required.
 						</div>
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="lastName">Last name</label> <input type="text"
-							class="form-control" id="lastName" placeholder="" value=""
-							required>
+							class="form-control" id="lastName" name="lastName" placeholder=""
+							value="" required>
 						<div class="invalid-feedback">Valid last name is required.</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 mb-3">
-						<label for="dob">Date of birth</label> <input type="text"
-							class="form-control" id="dob" placeholder="" value="" required>
+						<label for="dob">Date of birth</label> <input type="date" format="dd/mm/yyyy"
+							class="form-control" id="dob" name="dob" placeholder="" value=""
+							required>
 						<div class="invalid-feedback">you cant be this old.</div>
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="firstName">ID</label> <input type="number"
-							class="form-control" id="id" placeholder="" value=""
+							class="form-control" id="id" name="id" placeholder="" value="" min="1" max="3"
 							required>
 						<div class="invalid-feedback">Valid ID (int) is required.</div>
 					</div>
 				</div>
 
 
-				<div class="mb-3">
-					<label for="phoneNumber">Phone Number</label>
-					<div class="input-group">
-						<div class="input-group-prepend"></div>
-						<input type="text" class="form-control" id="phoneNumber"
-							placeholder="ignore +60 in number" required>
-						<div class="invalid-feedback" style="width: 100%;">Your A
-							number is required.</div>
+				<div class="row">
+					<div class="col-md-6 mb-3">
+						<label for="phoneNumber">Phone Number</label>
+						<div class="input-group">
+							<div class="input-group-prepend"></div>
+							<input type="text" class="form-control" id="phoneNumber"
+								name="phoneNumber" placeholder="ignore +60 in number" required>
+							<div class="invalid-feedback" style="width: 100%;">Your A
+								number is required.</div>
+						</div>
+					</div>
+
+
+
+					<div class="col-md-6 mb-3">
+						<label for="gender">Gender</label> <select
+							class="custom-select d-block w-100" id="gender" name="gender"
+							required>
+							<option value="">Choose...</option>
+							<option>Male</option>
+							<option value="Afghanistan">Female</option>
+						</select>
 					</div>
 				</div>
 
@@ -113,21 +127,22 @@
 
 				<div class="mb-3">
 					<label for="address">Address</label> <input type="text"
-						class="form-control" id="address" placeholder="kelantan" required>
-					<div class="invalid-feedback">Please enter your home address
-					</div>
+						class="form-control" id="address" name="address"
+						placeholder="kelantan" required>
+					<div class="invalid-feedback">Please enter your home address</div>
 				</div>
 
 				<div class="mb-3">
 					<label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
 					<input type="text" class="form-control" id="address2"
-						placeholder="Apartment or house">
+						name="address2" placeholder="Apartment or house" required>
 				</div>
 
 				<div class="row">
 					<div class="col-md-5 mb-3">
 						<label for="country">Country</label> <select
-							class="custom-select d-block w-100" id="country" required>
+							class="custom-select d-block w-100" id="country" name="country"
+							required>
 							<option value="">Choose...</option>
 							<option>Malaysia</option>
 							<option value="Afghanistan">Afghanistan</option>
@@ -276,21 +291,22 @@
 								The Former Yugoslav Republic of</option>
 							<option value="Madagascar">Madagascar</option>
 						</select>
-						<div class="invalid-feedback">Please select a valid country.
-						</div>
+						<div class="invalid-feedback">Please select a valid country.</div>
 					</div>
 					<div class="col-md-4 mb-3">
 						<label for="state">State</label> <select
-							class="custom-select d-block w-100" id="state" required>
+							class="custom-select d-block w-100" id="state" name="state"
+							required>
 							<option value="">Choose...</option>
 							<option>Johor</option>
+							<option>Kelantan</option>
+							<option>Selangor</option>
 						</select>
-						<div class="invalid-feedback">Please provide a valid state.
-						</div>
+						<div class="invalid-feedback">Please provide a valid state.</div>
 					</div>
 					<div class="col-md-3 mb-3">
 						<label for="zip">Zip</label> <input type="text"
-							class="form-control" id="zip" placeholder="" required>
+							class="form-control" id="zip" placeholder="" name="zip" required>
 						<div class="invalid-feedback">Zip code required.</div>
 					</div>
 				</div>
@@ -303,10 +319,10 @@
 	</div>
 
 	<footer class="my-5 pt-5 text-muted text-center text-small">
-		<p class="mb-1">&copy; 2021 netzilla</p>
+		<p class="mb-1">&copy; 2022 netzilla</p>
 	</footer>
-
-
+	
+	
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 

@@ -38,10 +38,11 @@ public class Logout extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		session.removeAttribute("credentials");
+		session.setAttribute("userId", null);
 		session.invalidate();
 		response.getWriter().println("you will be redirected to the login page in 2 seconds");
 		response.getWriter().println("<meta http-equiv='refresh' content='2;URL=Login_page.jsp'>");
-		response.sendRedirect("Login_page.jsp");
+		response.sendRedirect("MainController");
 	}
 
 }

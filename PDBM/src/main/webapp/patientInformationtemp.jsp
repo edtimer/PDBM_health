@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ page import="com.Model.Patient"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,9 +12,9 @@
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
 <!-- CSS for bootstrap -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
 <link rel="icon" href="medical_logo.jpg">
-<title>Bed Assignment</title>
+<title>Consultation</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/4.0/components/buttons/">
@@ -83,8 +85,8 @@
 						aria-current="page" href="main_Page.jsp">Home</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="patient_Registration.jsp">Register patient</a></li>
-					<li class="nav-item"><a class="nav-link" href="patient_Information.jsp">Edit
-							patient</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="patient_Information.jsp">Edit patient</a></li>
 					<li class="nav-item"><a class="nav-link" href="Management.jsp">Admin</a></li>
 				</ul>
 				<form class="d-flex" action="logout" method="post">
@@ -134,15 +136,13 @@
 				<div class="card-body">
 					<div class="card tabs">
 						<ul class="list-group list-group-flush">
-                                                    <jsp:useBean id="patient" scope="request" class="com.Model.Patient"/>
-                                                    <jsp:setProperty name="patient" property="*"/>
-							<li class="list-group-item "><b>First Name :</b> 
-                                                           <jsp:getProperty name="patient" property="firstname"/></li>
-							<li class="list-group-item "><b>Last Name :</b> <jsp:getProperty name="patient" property="lastname"/></li>
 
-							<li class="list-group-item"><b>Age :</b> 24</li>
+							<li class="list-group-item "><b>Patient ID <c:out value="${patient.id}"/> </b></li>
+							<li class="list-group-item "><b>Last Name :</b><c:out value="${patient.lastName}"/></li>
 
-							<li class="list-group-item"><b>Gender :</b> Female</li>
+							<li class="list-group-item"><b>Age :</b><c:out value="${patient.dob}"/></li>
+
+							<li class="list-group-item"><b>Gender :</b><c:out value="${patient.gender}"/></li>
 
 							<li class="list-group-item "><b>Allergy:</b> None</li>
 
