@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+	<servlet>
+		<servlet-name>Authentication</servlet-name>
+		<servlet-class>com.Authenticate.Authentication</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Authentication</servlet-name>
+		<url-pattern>/signin</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>logout</servlet-name>
+		<servlet-class>com.Authenticate.Logout</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>add</servlet-name>
+		<servlet-class>com.Controllers.PatientController</servlet-class>
+	</servlet>	
+	
+		<servlet-mapping>
+		<servlet-name>add</servlet-name>
+		<url-pattern>/new</url-pattern>
+		<url-pattern>/add</url-pattern>
+	</servlet-mapping>
+	<servlet>
+        <servlet-name>PatientController</servlet-name>
+        <servlet-class>com.Controllers.PatientController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientController</servlet-name>
+        <url-pattern>/PatientController/delete</url-pattern>
+        <url-pattern>/PatientController/edit</url-pattern>
+        <url-pattern>/PatientController/assign</url-pattern>
+        <url-pattern>/PatientController/getInfo</url-pattern>
+        <url-pattern>/PatientController/admin</url-pattern>
+    </servlet-mapping>
+</web-app>
