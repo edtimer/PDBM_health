@@ -140,11 +140,15 @@ public class bedController extends HttpServlet {
 
 	}
 	
-	private void updateBedStatus(HttpServletRequest req, HttpServletResponse res) throws SQLException, IOException {
-		int bedStatus = Integer.parseInt(req.getParameter("bedStatus"));
-		bdao.updateBedStatus(bedStatus);
+	private void updateBedStatus(HttpServletRequest req, HttpServletResponse res) throws SQLException, IOException, ServletException {
+		String bedStatus = req.getParameter("bedStatus");
+		int bedNo = Integer.parseInt(req.getParameter("bedNo"));
+		bdao.updateBedStatus(bedStatus,bedNo);
 		res.sendRedirect("bedList.jsp");
-
+		listBedAssignment(req,res);
+		//RequestDispatcher rd = req.getRequestDispatcher("/bedAssignment.jsp");
+		//req.setAttribute("patient", existingPatient);
+		//rd.forward(req, res);
 	}
 
 	private void listBedAssignment(HttpServletRequest request, HttpServletResponse response)
@@ -156,7 +160,7 @@ public class bedController extends HttpServlet {
 		session.setAttribute("bedlist", listBedAssignment);
 //        RequestDispatcher dispatcher = request.getRequestDispatcher("main_Page.jsp");
 //        dispatcher.forward(request, response);
-		response.sendRedirect(request.getContextPath() + "/main_Page.jsp");
+//		response.sendRedirect(request.getContextPath() + "/main_Page.jsp");
 	}
 
 	/**

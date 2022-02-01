@@ -18,7 +18,9 @@ public class AccessDao {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// creating connection object
+			
 			Connection connection = DriverManager.getConnection(url, unameString, pass);
+			
 			// creating statement
 			PreparedStatement statement = connection.prepareStatement(access);
 			statement.setString(1, email);
@@ -33,7 +35,7 @@ public class AccessDao {
 			e.printStackTrace();
 		}
 
-		return 404;
+		return 500;
 	}
 
 }

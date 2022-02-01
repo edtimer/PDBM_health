@@ -25,8 +25,7 @@ public class bedDao {
 
 	private static final String SELECT_ALL_BED = "select * from bed";
 	private static final String SELECT_BED_BY_NO = "select bedNo,floor,roomNo,bedStatus,patientId from bed where bedNo=?;";
-	private static final String INSERT_BED_RESERVATION = "insert into Bed"
-			+ " (bedNo, floor,roomNo, bedStatus, patientId) VALUES" + "(?,?,?,?,?);";
+	private static final String INSERT_BED_RESERVATION = "update Bed set floor=?,roomNo=?, bedStatus=?, patientId=? where bedNo=?;";
 	private static final String DELETE_PATIENTID_BY_BED_NO = "update Bed set patientId='' where bedNo=?;";
 	private static final String UPDATE_PATIENTID_BY_BED_NO = "update Bed set patientId=? where bedNo=?;";
 	private static final String UPDATE_BEDSTATUS_BY_BED_NO = "update Bed set bedStatus=? where bedNo=?;";
@@ -51,11 +50,11 @@ public class bedDao {
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_BED_RESERVATION)) {
 
-			preparedStatement.setInt(1, bed.getBedNo());
-			preparedStatement.setInt(2, bed.getFloor());
-			preparedStatement.setInt(3, bed.getRoomNo());
-			preparedStatement.setString(4, bed.getBedStatus());
-			preparedStatement.setInt(5, id);
+			preparedStatement.setInt(1, bed.getFloor());
+			preparedStatement.setInt(2, bed.getRoomNo());
+			preparedStatement.setString(3, bed.getBedStatus());
+			preparedStatement.setInt(4, id);
+			preparedStatement.setInt(5, bed.getBedNo());
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -122,11 +121,12 @@ public class bedDao {
 	}
 
 	// updating bed status
-	public boolean updateBedStatus(int bedStatus) throws SQLException {
+	public boolean updateBedStatus(String bedStatus, int bedNo) throws SQLException {
 		boolean updated;
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(UPDATE_BEDSTATUS_BY_BED_NO);) {
-			statement.setInt(4, bedStatus);
+			statement.setString(1, bedStatus);
+			statement.setInt(2, bedNo);
 			updated = statement.executeUpdate() > 0; // to determine if update was successful or failed.
 		}
 		return updated;

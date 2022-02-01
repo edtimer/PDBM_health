@@ -138,10 +138,10 @@ justify-content: center;
 						 <div class="col-sm-6">
 						    <div class="card">
 						      <div class="card-body">
-						        <h4 class="card-title">Floor 2 Room 1</h4>
+						        <h4 class="card-title">Floor 1 Room 1</h4>
 						        <p class="card-text">The available beds are updating in real time</p>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="111" onClick="reply_click(this.id)">-</button>
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="112" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#bedModal" disabled id="112" onClick="reply_click(this.id)">-</button>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="113" onClick="reply_click(this.id)">-</button>
 						        <br/><br/>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="114" onClick="reply_click(this.id)">-</button>
@@ -153,7 +153,7 @@ justify-content: center;
 						  <div class="col-sm-6">
 						    <div class="card">
 						      <div class="card-body">
-						        <h4 class="card-title">Floor 2 Room 2</h4>
+						        <h4 class="card-title">Floor 1 Room 2</h4>
 						        <p class="card-text">The available beds are updating in real time</p>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="121" onClick="reply_click(this.id)">-</button>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="122" onClick="reply_click(this.id)">-</button>
@@ -169,7 +169,7 @@ justify-content: center;
 						 <div class="col-sm-6">
 						    <div class="card">
 						      <div class="card-body">
-						        <h4 class="card-title">Floor 1 Room 1</h4>
+						        <h4 class="card-title">Floor 2 Room 1</h4>
 						        <p class="card-text">The available beds are updating in real time</p>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="211" onClick="reply_click(this.id)">-</button>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="212" onClick="reply_click(this.id)">-</button>
@@ -184,7 +184,7 @@ justify-content: center;
 						  <div class="col-sm-6">
 						    <div class="card">
 						      <div class="card-body">
-						        <h4 class="card-title">Floor 1 Room 2</h4>
+						        <h4 class="card-title">Floor 2 Room 2</h4>
 						        <p class="card-text">The available beds are updating in real time</p>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="221" onClick="reply_click(this.id)">-</button>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="222" onClick="reply_click(this.id)">-</button>
@@ -192,8 +192,7 @@ justify-content: center;
 						        <br/><br/>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="224" onClick="reply_click(this.id)">-</button>
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="225" onClick="reply_click(this.id)">-</button>
-						        
-						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="" onload="disable_button(this.id)" onClick="reply_click(this.id)">-</button>
+						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bedModal" id="226" onClick="reply_click(this.id)">-</button>
 						      </div>
 						    </div>
 						  </div>
@@ -218,68 +217,82 @@ justify-content: center;
 		<h4>Bed Information</h4>
 		<table class="table">
 		<tbody>
+		<form action="reservation" method="post">
+
 		<tr>
 			<th scope="row" class="bed-no">Bed No</th>
 			<td class="modal-body-table-row" id="bedIdModal"></td>
+		</tr>
 		<tr>
 			<th scope="row" class="bed-location">Bed Location</th>
-			<td>Floor Room </td>
+			<td><select name="floor" id="floor">
+			  <option value="1">1</option>
+			  <option value="2">2</option>
+			</select>
+			 Floor
+			<select name="roomNo" id="roomNo">
+			  <option value="1">1</option>
+			  <option value="2">2</option>
+			</select>
+			 Room
+			</td>
 		</tr>
 		<tr>
 			<th scope="row" class="bed-status">Bed Status</th>
-			<td>Clean</td>
+			<td><select name="bedStatus" id="bedStatus">
+				<option value="Clean">Clean</option>
+				<option value="Not Clean">Not Clean</option>
+				<option value="Exchange Mattress">Exchange Mattress</option>
+			</select>
+			</td>
 			</tr>
+
 		</tbody>
 		</table>
-		<form>
+
 		
 		<div class="form-group">
 		<label for="patient-name" class="col-form-label">Patient ID:</label>
 		<input type="text" class="form-control" id="patient-name" value=<c:out value="${patient.id}" />>
 		</div>
-		</form>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <form action="reservation" method="post">
-        <select  name="bedId" >
-        <option>Floor1</option>
-        <option>Floor2</option>
-        </select>
-       <!--  <input id="floor" type="hidden" name="floor" >--> 
-        <!-- <input id="roomNumber" type="hidden" name="roomNumber" > -->
+        
+        <input  id="bedId" type="hidden" name="bedId" >
         <input type="hidden" name="id" value="${patient.id}">
-        <input id ="f" type="hidden" name="floor" >
-        <input type="submit" class="btn btn-primary" value="Assign">
+        <input type="submit" class="btn btn-primary" value="Assign" onclick="confirm_disable()">
         </form>
       </div>
     </div>
   </div>
 </div>
 
-        <script type="text/javascript">
-        
+	<script type="text/javascript">
+
 
         function reply_click(clicked_id)
         {
-        	document.getElementById("bedIdModal").innerHTML = clicked_id;
-        	document.getElementById("bedId").value= clicked_id;
-        	document.getElementById("bedId").value= clicked_id;
-        	<!--document.getElementById("floor").value= clicked_id;-->
-        	<!--document.getElementById("roomNumber").value= clicked_id;-->
-        	
-        }
-        function floor(clicked_id)
-        {
-        	document.getElementById("f").innerHTML = clicked_id;
+            document.getElementById("bedIdModal").innerHTML = clicked_id;
+            document.getElementById("bedId").value= clicked_id;
+            <!--document.getElementById("floor").value= clicked_id;-->
+            <!--document.getElementById("roomNumber").value= clicked_id;-->
 
         }
-        
-        function disable_button(id)
+       
+
+        function confirm_disable()
         {
-        	if(id == ""){
-        	document.getElementById(clicked_id).disable = false;
-        	}
+        	var x = document.getElementById("bedId").value;
+    		if(confirm("Do you want to assign the bed "+x+" to patient?") == true){
+    			alert("Bed assignment has been done!");
+    		}
+    		else{
+    			alert("Bed assignment has not beed done.");
+    		}	
+        	//var x = document.getElementById("bedId").value;
+        	//document.getElementById(x).style.backgroundColor=color[#808080];
         }
         </script>
 

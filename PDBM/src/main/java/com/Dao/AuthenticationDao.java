@@ -36,6 +36,12 @@ public class AuthenticationDao {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("(Group Netzilla)Error connecting to database, please ensure you are using JDBC connector 8.0.11 atleast and check uname & password in DAO classes\n");
+			System.out.println("(Group Netzilla)Error connecting to database, please ensure you are using JDBC connector 8.0.11 atleast and check uname & password in DAO classes\n");
+			System.out.println("(Group Netzilla)Error connecting to database, please ensure you are using JDBC connector 8.0.11 atleast and check uname & password in DAO classes\n");
+			System.out.println("(Group Netzilla)Error connecting to database, please ensure you are using JDBC connector 8.0.11 atleast and check uname & password in DAO classes\n");
+			System.out.println("(Group Netzilla)Error connecting to database, please ensure you are using JDBC connector 8.0.11 atleast and check uname & password in DAO classes\n");
+
 		}
 		System.out.println("fail");
 		return false;

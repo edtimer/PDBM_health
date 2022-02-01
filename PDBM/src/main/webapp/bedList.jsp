@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.Model.Bed"%>
+<%@page import="com.Model.Patient"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 
@@ -13,6 +14,8 @@
 </head>
 <body>
 <body class="mx-autojustify-content-centeralign-items-center">
+<c:set var="bed" value="${bed}" scope="session" />
+<c:set var="patient" value="${patients}" scope="session" />
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
 		<div class="container-fluid">
@@ -52,8 +55,8 @@
 		</div>
 		<div class="text-center">
 			<h3 class="text-center">Bed records</h3>
-			<img src="patients.jpg" class="round text-center" 
-				style="width: 100px; height: 100px;">
+			<p><img src="bed.png" class="round text-center" 
+				style="width: 100px; height: 100px;"></p>
 		</div>
 			<table cellpadding="0" cellspacing="0" border="0"
 				class="datatable table table-striped table-bordered ">
@@ -63,7 +66,6 @@
 						<th>Floor</th>
 						<th>Room</th>
 						<th>Bed Status</th>
-						<th>Patient ID</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -77,30 +79,19 @@
 							<td class="center"><c:out value="${bed.bedNo}" /></td>
 							<td class="center"><c:out value="${bed.floor}" /></td>
 							<td class="center"><c:out value="${bed.roomNo}" /></td>
-							<td class="center"><c:out value="${bed.bedStatus}" /></td>
-							<td align="center">
-							<c:choose>
-								<c:when test="${patientId != null }">
-									<c:out value="${bed.patientId}" />
-								</c:when>
-								<c:when test="${patientId == null }">
-									NONE
-								</c:when>
-							</c:choose>
+							<td class="center">
+							<form action="updateBS" method="post">
+								<select name="bedStatus" id="bedStatus">
+									<option selected><c:out value="${bed.bedStatus}" /></option>
+									  <option value="Clean">Clean</option>
+									  <option value="Not Clean">Not Clean</option>
+									  <option value="Exchange Mattress">Exchange Mattress</option>
+								</select>
+								<input type="hidden" name="bedNo" value="${bed.bedNo}">
 							</td>
 							<td>							
-								<form method=post>
-									<c:choose>
-										<c:when test="${patientId != null }">
-											<button type="submit" class="btn btn-danger"
-										formaction="bedController/delete?patientId=<c:out value='${bed.patientId}'/>">Delete Patient</button>
-										</c:when>
-										<c:when test="${patientId == null }">
-										
-										</c:when>
-									</c:choose>
-									<button type="submit" class="btn btn-success"
-										formaction="bedController/updateBS?bedStatus=<c:out value='${bed.bedStatus}'/>">Change Bed Status</button>
+									<button type="submit" class="btn btn-success" onclick="confirmFunction()">
+										Change Bed Status</button>
 								</form>
 							</td>
 						</tr>
@@ -109,19 +100,19 @@
 				</tbody>
 
 			</table>
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<li class="page-item disabled"><a class="page-link">Previous</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
-			</ul>
-		</nav>
 	</div>
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/jquery.js"></script>
+	<script>
+	function confirmFunction(){
+		if(confirm("Do you want to change the bed status?") == true){
+			alert("Bed status has been changed!");
+		}
+		else{
+			alert("Bed status has not beed changed.");
+		}
+	}
+	</script>
 </body>
 </html>
